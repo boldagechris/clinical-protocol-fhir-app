@@ -1,5 +1,19 @@
 import React, { useState, useCallback } from 'react';
-import { Upload, FileText, Activity, CheckCircle, AlertCircle, Download, Send, Loader2, Zap, Brain, ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
+import { 
+  AiOutlineUpload as Upload,
+  AiOutlineFileText as FileText,
+  AiOutlineHeart as Activity,
+  AiOutlineCheckCircle as CheckCircle,
+  AiOutlineExclamationCircle as AlertCircle,
+  AiOutlineDownload as Download,
+  AiOutlineSend as Send,
+  AiOutlineLoading3Quarters as Loader2,
+  AiOutlineThunderbolt as Zap,
+  AiOutlineBulb as Brain,
+  AiOutlineSafety as ShieldCheck,
+  AiOutlineStar as Sparkles,
+  AiOutlineReload as RefreshCw
+} from 'react-icons/ai';
 import * as mammoth from 'mammoth';
 
 interface ValidationIssue {
