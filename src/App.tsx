@@ -2,41 +2,56 @@ import React, { useState, useCallback } from 'react';
 import { Upload, FileText, Activity, CheckCircle, AlertCircle, Download, Send, Loader2, Zap, Brain, ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
 import * as mammoth from 'mammoth';
 
-const ClinicalProtocolFHIRApp = () => {
-  const [file, setFile] = useState(null);
-  const [extractedText, setExtractedText] = useState('');
-  const [fhirResources, setFhirResources] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1);
-  const [medplumDeployed, setMedplumDeployed] = useState(false);
-  const [error, setError] = useState('');
-  const [validationResults, setValidationResults] = useState(null);
-  const [generatedProtocol, setGeneratedProtocol] = useState('');
-  const [protocolPrompt, setProtocolPrompt] = useState('');
-  const [useAIGeneration, setUseAIGeneration] = useState(false);
+interface ValidationIssue {
+  severity: 'error' | 'warning' | 'information';
+  code: string;
+  details: string;
+  location: string;
+}
+
+interface ValidationResults {
+  valid: boolean;
+  issues: ValidationIssue[];
+  resourceCount: number;
+  errors: number;
+  warnings: number;
+  information: number;
+}
+
+interface FHIRResource {
+  resourceType: string;
+  id: string;
+  [key: string]: any;
+}
+
+interface FHIRBundle {
+  resourceType: string;
+  id: string;
+  type: string;
+  timestamp?: string;
+  entry?: Array<{ resource: FHIRResource }>;
+}
+
+const ClinicalProtocolFHIRApp: React.FC = () => {
+  const [file, setFile] = useState<File | null>(null);
+  const [extractedText, setExtractedText] = useState<string>('');
+  const [fhirResources, setFhirResources] = useState<FHIRBundle | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [step, setStep] = useState<number>(1);
+  const [medplumDeployed, setMedplumDeployed] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [validationResults, setValidationResults] = useState<ValidationResults | null>(null);
+  const [generatedProtocol, setGeneratedProtocol] = useState<string>('');
+  const [protocolPrompt, setProtocolPrompt] = useState<string>('');
+  const [useAIGeneration, setUseAIGeneration] = useState<boolean>(false);
 
   // AI Protocol Generation
-  const generateProtocol = async () => {
+  const generateProtocol = async (): Promise<void> => {
     setLoading(true);
     setError('');
     
     try {
-      // Simulate AI generation (replace with actual OpenAI/Claude API call)
       const prompt = protocolPrompt || "Generate a clinical study protocol for treating hypertension with lifestyle interventions";
-      
-      // In production, replace this with actual AI API call:
-      /*
-      const response = await fetch('/api/openai/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: `Generate a comprehensive clinical study protocol for: ${prompt}. Include patient demographics, inclusion/exclusion criteria, treatment plans, medications with specific dosages, follow-up schedules, and outcome measures.`,
-          maxTokens: 2000
-        })
-      });
-      const data = await response.json();
-      const generatedText = data.choices[0].text;
-      */
       
       // Simulated AI-generated protocol for demo
       const generatedText = `
@@ -118,8 +133,8 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   };
 
   // File upload handler
-  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = event.target.files[0];
+  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const uploadedFile = event.target.files?.[0];
     if (!uploadedFile) return;
 
     setFile(uploadedFile);
@@ -162,20 +177,10 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   }, []);
 
   // FHIR Validation
-  const validateFHIR = async (fhirData) => {
+  const validateFHIR = async (fhirData: FHIRBundle): Promise<ValidationResults> => {
     try {
-      // Simulate FHIR validation (replace with actual validator like HAPI FHIR or HL7 validator)
-      /*
-      const response = await fetch('/api/fhir/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/fhir+json' },
-        body: JSON.stringify(fhirData)
-      });
-      const validationResult = await response.json();
-      */
-      
       // Simulated validation results
-      const validationResult = {
+      const validationResult: ValidationResults = {
         valid: true,
         issues: [
           {
@@ -216,7 +221,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   };
 
   // Process text through Danish FHIR API with validation
-  const processWithFHIRAPI = async () => {
+  const processWithFHIRAPI = async (): Promise<void> => {
     setLoading(true);
     setError('');
     setValidationResults(null);
@@ -225,7 +230,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
       const endpoints = ['/process', '/convert', '/text-to-fhir', '/api/process', '/api/convert'];
       
       let success = false;
-      let result = null;
+      let result: FHIRBundle | null = null;
       
       for (const endpoint of endpoints) {
         try {
@@ -248,7 +253,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
         }
       }
       
-      if (!success) {
+      if (!success || !result) {
         // Enhanced simulated FHIR generation
         result = {
           resourceType: "Bundle",
@@ -348,7 +353,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   };
 
   // Deploy to Medplum
-  const deployToMedplum = async () => {
+  const deployToMedplum = async (): Promise<void> => {
     setLoading(true);
     try {
       // Check validation before deployment
@@ -366,7 +371,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
     }
   };
 
-  const resetApp = () => {
+  const resetApp = (): void => {
     setFile(null);
     setExtractedText('');
     setFhirResources(null);
@@ -751,4 +756,4 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   );
 };
 
-export default ClinicalProtocolFHIRApp;git add .
+export default ClinicalProtocolFHIRApp;
