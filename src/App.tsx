@@ -14,6 +14,7 @@ import {
   AiOutlineStar as Sparkles,
   AiOutlineReload as RefreshCw
 } from 'react-icons/ai';
+import { Activity } from 'lucide-react';
 import * as mammoth from 'mammoth';
 
 interface ValidationIssue {
@@ -411,7 +412,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mb-6 shadow-lg">
-            <Activity className="w-8 h-8 text-white" />
+{Activity && <Activity className="w-8 h-8 text-white" />}
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             AI-Powered Clinical Protocol to FHIR
