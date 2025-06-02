@@ -705,7 +705,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
                   </button>
                   <button
                     onClick={deployToMedplum}
-                    disabled={loading || (validationResults && !validationResults.valid)}
+                    disabled={loading || (validationResults ? !validationResults.valid : false)}
                     className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 disabled:opacity-50 flex items-center space-x-2"
                   >
                     {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
