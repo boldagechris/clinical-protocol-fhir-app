@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { 
   AiOutlineUpload as Upload,
   AiOutlineFileText as FileText,
-  AiOutlineHeart as Activity,
   AiOutlineCheckCircle as CheckCircle,
   AiOutlineExclamationCircle as AlertCircle,
   AiOutlineDownload as Download,
@@ -15,8 +14,6 @@ import {
   AiOutlineReload as RefreshCw
 } from 'react-icons/ai';
 import * as mammoth from 'mammoth';
-import { Activity } from 'lucide-react';
-
 
 interface ValidationIssue {
   severity: 'error' | 'warning' | 'information';
@@ -413,7 +410,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl mb-6 shadow-lg">
-{Activity && <Activity className="w-8 h-8 text-white" />}
+<Brain className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             AI-Powered Clinical Protocol to FHIR
@@ -668,7 +665,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
             {/* FHIR Resources Display */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <Activity className="w-6 h-6 text-green-600 mr-3" />
+                  <Brain className="w-6 h-6 text-green-600 mr-3" />
                 Generated FHIR Resources
               </h2>
               
