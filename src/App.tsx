@@ -118,7 +118,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   };
 
   // File upload handler
-  const handleFileUpload = useCallback(async (event) => {
+  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files[0];
     if (!uploadedFile) return;
 
@@ -751,4 +751,4 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
   );
 };
 
-export default ClinicalProtocolFHIRApp;
+export default ClinicalProtocolFHIRApp;git add .
