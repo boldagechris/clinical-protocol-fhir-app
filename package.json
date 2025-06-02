@@ -4,6 +4,7 @@
   "description": "AI-powered clinical protocol to FHIR converter with validation and Medplum deployment",
   "private": true,
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.8",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
