@@ -52,5 +52,5 @@
     "type": "git",
     "url": "https://github.com/YOUR_USERNAME/clinical-protocol-fhir-app.git"
   },
-  "homepage": "https://YOUR_USERNAME.github.io/clinical-protocol-fhir-app"
+  "homepage": "."
 }
