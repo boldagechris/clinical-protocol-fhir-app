@@ -111,7 +111,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
       setExtractedText(generatedText);
       setStep(2);
     } catch (err) {
-      setError(`Error generating protocol: ${err.message}`);
+      setError(`Error generating protocol: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }
@@ -155,7 +155,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
       setExtractedText(text);
       setStep(2);
     } catch (err) {
-      setError(`Error processing file: ${err.message}`);
+      setError(`Error processing file: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }
@@ -204,7 +204,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
         issues: [{
           severity: 'error',
           code: 'validation-failed',
-          details: `Validation failed: ${err.message}`,
+          details: `Validation failed: ${err instanceof Error ? err.message : String(err)}`,
           location: 'Bundle'
         }],
         resourceCount: 0,
@@ -341,7 +341,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
       setFhirResources(result);
       setStep(3);
     } catch (err) {
-      setError(`Error processing with FHIR API: ${err.message}`);
+      setError(`Error processing with FHIR API: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }
@@ -360,7 +360,7 @@ This protocol has been reviewed and approved by the Regional Ethics Committee.
       setMedplumDeployed(true);
       setStep(4);
     } catch (err) {
-      setError(`Error deploying to Medplum: ${err.message}`);
+      setError(`Error deploying to Medplum: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }

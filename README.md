@@ -1,46 +1,181 @@
-# Getting Started with Create React App
+# Clinical Protocol to FHIR Converter 🏥
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered React application that converts clinical study protocols into validated FHIR resources and deploys them to Medplum.
 
-## Available Scripts
+![Demo Screenshot](https://via.placeholder.com/800x400/4f46e5/ffffff?text=Clinical+Protocol+FHIR+App)
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- **🧠 AI Protocol Generation**: Generate comprehensive clinical protocols using AI
+- **📄 Multi-Format Support**: Upload Word, PDF, LaTeX, or text files
+- **⚡ FHIR Conversion**: Convert protocols to standardized FHIR resources
+- **🛡️ Validation**: Real-time FHIR validation with detailed feedback
+- **🚀 Medplum Integration**: Deploy validated resources to Medplum
+- **🎨 Modern UI**: Beautiful, responsive interface with animations
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🚀 Quick Start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
+- Node.js 16+ and npm
+- Modern web browser
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/clinical-protocol-fhir-app.git
+cd clinical-protocol-fhir-app
 
-### `npm run build`
+# Install dependencies
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Start development server
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app will open at `http://localhost:3000`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🔧 Usage
 
-### `npm run eject`
+### 1. Generate or Upload Protocol
+- **AI Generation**: Describe your clinical study and let AI create a comprehensive protocol
+- **File Upload**: Upload existing protocols in Word, PDF, or LaTeX format
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. Process and Convert
+- Text extraction and preprocessing
+- Conversion to FHIR resources via Danish Text-to-FHIR API
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Validation
+- Real-time FHIR validation
+- Detailed error, warning, and information reports
+- Resource count and compliance checking
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 4. Deploy
+- Deploy validated FHIR resources to Medplum
+- Integration ready for production healthcare systems
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📊 FHIR Resources Generated
 
-## Learn More
+The app automatically generates appropriate FHIR resources including:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Patient** - Study participants
+- **Practitioner** - Investigators and coordinators
+- **Organization** - Institutions and sponsors
+- **ResearchStudy** - Study metadata and protocols
+- **MedicationRequest** - Prescribed treatments
+- **CarePlan** - Treatment and follow-up plans
+- **Procedure** - Study procedures and assessments
+- **Condition** - Medical conditions and diagnoses
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠️ Technical Stack
+
+- **Frontend**: React 18, Tailwind CSS, Lucide React
+- **File Processing**: Mammoth (Word docs), PDF parsing ready
+- **FHIR**: Integration with Danish Text-to-FHIR API
+- **Validation**: FHIR resource validation engine
+- **Deployment**: Medplum integration
+- **AI**: Ready for OpenAI/Claude integration
+
+## 🔌 API Integration
+
+### Danish Text-to-FHIR API
+```javascript
+const response = await fetch('https://your-api-endpoint.app.github.dev/process', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: clinicalProtocolText,
+    language: 'da'
+  })
+});
+```
+
+### Medplum Deployment
+```javascript
+import { MedplumClient } from '@medplum/core';
+
+const medplum = new MedplumClient({
+  baseUrl: 'https://api.medplum.com/',
+  clientId: 'your-client-id'
+});
+
+await medplum.createResource(fhirBundle);
+```
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+```bash
+npm run build
+# Deploy to Vercel via GitHub integration
+```
+
+### Netlify
+```bash
+npm run build
+# Deploy build folder to Netlify
+```
+
+### GitHub Pages
+```bash
+npm install --save-dev gh-pages
+npm run build
+npm run deploy
+```
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+
+# E2E testing (if configured)
+npm run e2e
+```
+
+## 📝 Example Prompts for AI Generation
+
+- "A randomized trial for diabetes management in elderly patients"
+- "Cardiovascular prevention study with new statin therapy"
+- "Pediatric asthma treatment protocol using inhaled corticosteroids"
+- "Mental health intervention study for depression treatment"
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🏥 Healthcare Compliance
+
+This application is designed for research and development purposes. For production healthcare use:
+
+- Ensure HIPAA compliance for patient data
+- Implement proper authentication and authorization
+- Follow local healthcare data regulations
+- Validate with clinical teams before deployment
+
+## 🔗 Related Projects
+
+- [Danish Text-to-FHIR API](https://github.com/your-repo)
+- [Medplum](https://github.com/medplum/medplum)
+- [HAPI FHIR](https://github.com/hapifhir/hapi-fhir)
+
+## 📞 Support
+
+- 📧 Email: your.email@example.com
+- 🐛 Issues: [GitHub Issues](https://github.com/YOUR_USERNAME/clinical-protocol-fhir-app/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/YOUR_USERNAME/clinical-protocol-fhir-app/discussions)
+
+---
+
+**⭐ Star this repository if it helped you!**
