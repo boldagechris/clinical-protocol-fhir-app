@@ -14,8 +14,9 @@ import {
   AiOutlineStar as Sparkles,
   AiOutlineReload as RefreshCw
 } from 'react-icons/ai';
-import { Activity } from 'lucide-react';
 import * as mammoth from 'mammoth';
+import { Activity } from 'lucide-react';
+
 
 interface ValidationIssue {
   severity: 'error' | 'warning' | 'information';
